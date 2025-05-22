@@ -17,16 +17,33 @@ namespace TaskTrackerCLI.Services
             Console.WriteLine("Add a task title: ");
             string title = Console.ReadLine();
 
+            while (string.IsNullOrEmpty(title))
+            {
+                Console.WriteLine("Title cannot be empty. Please enter a task title: ");
+                title = Console.ReadLine();
+            }
+
             Console.WriteLine("Add a description(optional): ");
             string? description = Console.ReadLine();
-            DateTime createdAt = DateTime.Now.ToLocalTime(); //!!
-            string formattedDate = createdAt.ToString("dd.mm.yy");
 
-            Console.WriteLine("Add a days to deadline: ");
-            int days = int.Parse(Console.ReadLine());
+            DateTime createdAt = DateTime.Now.ToLocalTime();
+            string formattedDate = createdAt.ToString("dd.MM.yy");
 
-            DateTime deadlineAt = DateTime.Now.AddDays(days);
-            string formattedDeadline = deadlineAt.ToString("dd.mm.yy");
+            string formattedDeadline = string.Empty;
+            while (string.IsNullOrEmpty(formattedDeadline))
+            {
+                Console.WriteLine("Add days to deadline: ");
+                string input = Console.ReadLine();
+                if (int.TryParse(input, out int days) && days >= 0)
+                {
+                    DateTime deadlineAt = DateTime.Now.AddDays(days);
+                    formattedDeadline = deadlineAt.ToString("dd.MM.yy");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input");
+                }
+            }
 
             string taskPriority = ReadEmptyString("Choose a task priority (Low, Medium, High): ", "Task Priority");
             TaskPriority priority;
@@ -47,7 +64,7 @@ namespace TaskTrackerCLI.Services
                     break;
             }
 
-            string taskStatus = ReadEmptyString("Choose a task status (Pending, In Progress, Completed, Delayed): ", "Task status");
+            string taskStatus = ReadEmptyString("Choose a task status (Pending, In Progress, Completed, Delayed): ", "Task Status");
             MyTaskStatus status;
 
 
@@ -75,9 +92,17 @@ namespace TaskTrackerCLI.Services
             jsonManager.SaveTasks(taskItem);
         }
 
-        public void LoadTask()
+        public void LoadTasks()
         {
             taskItems = jsonManager.LoadTasks();
+        }
+
+        public void PrintTasks()
+        {
+            foreach (TaskItem taskItem in taskItems)
+            {
+                Console.WriteLine(taskItem);
+            }
         }
 
         public string ReadEmptyString(string warningMessage, string callMethodName)

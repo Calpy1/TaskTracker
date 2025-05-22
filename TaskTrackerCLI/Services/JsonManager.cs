@@ -12,6 +12,8 @@ namespace TaskTrackerCLI.Services
     {
         private readonly string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Data", "tasks.json");
 
+        public bool IsFirstStart => !File.Exists(filePath);
+
         public void SaveTasks(TaskItem newTask)
         {
             List<TaskItem> tasks = LoadTasks();
@@ -36,6 +38,7 @@ namespace TaskTrackerCLI.Services
         {
             if (!File.Exists(filePath))
             {
+                Console.WriteLine("File Not Found. Please make a first task");
                 return new List<TaskItem>();
             }
 

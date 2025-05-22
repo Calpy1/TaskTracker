@@ -33,7 +33,7 @@ namespace TaskTrackerCLI.Models
                     $"Created at: {CreatedAt}\n" +
                     $"Deadline: {DeadlineAt}\n" +
                     $"Priority: {Priority}\n" +
-                    $"Status: {Status}";
+                    $"Status: {Status}\n";
             }
 
             return $"Title: {Title}\n" +
@@ -41,7 +41,7 @@ namespace TaskTrackerCLI.Models
                 $"Created at: {CreatedAt}\n" +
                 $"Deadline: {DeadlineAt}\n" +
                 $"Priority: {Priority}\n" +
-                $"Status: {Status}";
+                $"Status: {Status}\n";
         }
     }
 }

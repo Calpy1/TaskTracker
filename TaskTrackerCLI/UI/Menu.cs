@@ -11,13 +11,16 @@ namespace TaskTrackerCLI.UI
     {
         public void Visualisation()
         {
-            TaskManager taskManager = new TaskManager();
-            taskManager.AddTask();
-
-            foreach (var item in taskManager.taskItems)
+            JsonManager jsonManager = new JsonManager();
+            if (jsonManager.IsFirstStart)
             {
-                Console.WriteLine(item);
+                Console.WriteLine("Lets make a first task!");
             }
+
+            TaskManager taskManager = new TaskManager();
+            //taskManager.LoadTasks();
+            //taskManager.PrintTasks();
+            taskManager.AddTask();
         }
     }
 }
