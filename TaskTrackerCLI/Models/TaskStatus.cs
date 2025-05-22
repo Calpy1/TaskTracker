@@ -9,7 +9,7 @@ namespace TaskTrackerCLI.Models
     public enum TaskStatus
     {
         Pending,
-        InProgress,
+        In_Progress,
         Completed,
         Delayed,
         Undefined

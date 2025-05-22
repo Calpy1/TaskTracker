@@ -20,38 +20,26 @@ namespace TaskTrackerCLI.Services
             Console.WriteLine("Add a description(optional): ");
             string? description = Console.ReadLine();
             DateTime createdAt = DateTime.Now.ToLocalTime(); //!!
+            string formattedDate = createdAt.ToString("dd.mm.yy");
 
-            Console.WriteLine("Add a deadline time (DD.MM.YY): ");
+            Console.WriteLine("Add a days to deadline: ");
+            int days = int.Parse(Console.ReadLine());
 
-            DateTime deadlineAt;
-
-            while (true) //!!
-            {
-                string timeReadling = Console.ReadLine();
-                bool parseTimeSuccess = DateTime.TryParseExact(timeReadling, "dd.MM.yy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out deadlineAt);
-
-                if (parseTimeSuccess)
-                {
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine($"Invalid date format. Please use \"dd.MM.yy\"");
-                }
-            }
+            DateTime deadlineAt = DateTime.Now.AddDays(days);
+            string formattedDeadline = deadlineAt.ToString("dd.mm.yy");
 
             string taskPriority = ReadEmptyString("Choose a task priority (Low, Medium, High): ", "Task Priority");
             TaskPriority priority;
 
             switch (taskPriority)
             {
-                case "Low":
+                case "low":
                     priority = TaskPriority.Low;
                     break;
-                case "Medium":
+                case "medium":
                     priority = TaskPriority.Medium;
                     break;
-                case "High":
+                case "high":
                     priority = TaskPriority.High;
                     break;
                 default:
@@ -65,16 +53,16 @@ namespace TaskTrackerCLI.Services
 
             switch (taskStatus)
             {
-                case "Pending":
+                case "pending":
                     status = MyTaskStatus.Pending;
                     break;
-                case "In Progress":
-                    status = MyTaskStatus.InProgress;
+                case "in progress":
+                    status = MyTaskStatus.In_Progress;
                     break;
-                case "Completed":
+                case "completed":
                     status = MyTaskStatus.Completed;
                     break;
-                case "Delayed":
+                case "delayed":
                     status = MyTaskStatus.Delayed;
                     break;
                 default:
@@ -82,7 +70,7 @@ namespace TaskTrackerCLI.Services
                     break;
             }
 
-            TaskItem taskItem = new TaskItem(title, description, createdAt, deadlineAt, priority, status);
+            TaskItem taskItem = new TaskItem(title, description, formattedDate, formattedDeadline, priority, status);
             taskItems.Add(taskItem);
             jsonManager.SaveTasks(taskItem);
         }
@@ -95,7 +83,7 @@ namespace TaskTrackerCLI.Services
         public string ReadEmptyString(string warningMessage, string callMethodName)
         {
             Console.WriteLine(warningMessage);
-            string text = Console.ReadLine();
+            string text = Console.ReadLine().ToLower();
 
             if (string.IsNullOrEmpty(text))
             {

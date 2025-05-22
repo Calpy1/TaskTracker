@@ -10,12 +10,12 @@ namespace TaskTrackerCLI.Models
     {
         public string Title { get; set; }
         public string? Description { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime DeadlineAt { get; set; }
+        public string CreatedAt { get; set; }
+        public string DeadlineAt { get; set; }
         public TaskPriority Priority { get; set; }
         public TaskStatus Status { get; set; }
 
-        public TaskItem(string title, string? description, DateTime createdAt, DateTime deadlineAt, TaskPriority priority, TaskStatus status)
+        public TaskItem(string title, string? description, string createdAt, string deadlineAt, TaskPriority priority, TaskStatus status)
         {
             Title = title;
             Description = description;
