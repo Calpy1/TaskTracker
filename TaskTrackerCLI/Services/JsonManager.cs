@@ -19,8 +19,18 @@ namespace TaskTrackerCLI.Services
             List<TaskItem> tasks = LoadTasks();
             tasks.Add(newTask);
 
-            string? directoryPath = Path.GetDirectoryName(filePath);
+            WriteTasksToFile(tasks);
+        }
 
+        public void UpdateData(List<TaskItem> taskItems)
+        {
+            WriteTasksToFile(taskItems);
+        }
+
+        public void WriteTasksToFile(List<TaskItem> tasks)
+        {
+            string? directoryPath = Path.GetDirectoryName(filePath);
+            
             if (!Directory.Exists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);

@@ -12,6 +12,12 @@ namespace TaskTrackerCLI.Services
     {
         public List<TaskItem> taskItems = new List<TaskItem>();
         private JsonManager jsonManager = new JsonManager();
+
+        public TaskManager()
+        {
+            taskItems = jsonManager.LoadTasks();
+        }
+
         public void AddTask()
         {
             Console.WriteLine("Add a task title: ");
@@ -21,6 +27,15 @@ namespace TaskTrackerCLI.Services
             {
                 Console.WriteLine("Title cannot be empty. Please enter a task title: ");
                 title = Console.ReadLine();
+            }
+
+            string originalTitle = title;
+            int index = 1;
+
+            while (taskItems.Any(t => t.Title == title))
+            {
+                title = originalTitle + index;
+                index++;
             }
 
             Console.WriteLine("Add a description(optional): ");
@@ -89,12 +104,31 @@ namespace TaskTrackerCLI.Services
 
             TaskItem taskItem = new TaskItem(title, description, formattedDate, formattedDeadline, priority, status);
             taskItems.Add(taskItem);
+
             jsonManager.SaveTasks(taskItem);
+            Console.WriteLine("Task added successfully!");
         }
 
-        public void LoadTasks()
+        public void RemoveTasks()
         {
-            taskItems = jsonManager.LoadTasks();
+            Console.WriteLine("Add a task name to remove it:");
+            string removeTask = Console.ReadLine();
+
+            var tasksToRemove = taskItems.FindAll(t => t.Title.Equals(removeTask, StringComparison.OrdinalIgnoreCase));
+
+            if (tasksToRemove.Count == 0)
+            {
+                Console.WriteLine($"Task \"{removeTask}\" not found.");
+                return;
+            }
+
+            foreach (var task in tasksToRemove)
+            {
+                taskItems.Remove(task);
+                Console.WriteLine($"Task \"{task.Title}\" successfully deleted.");
+            }
+
+            jsonManager.UpdateData(taskItems);
         }
 
         public void PrintTasks()
