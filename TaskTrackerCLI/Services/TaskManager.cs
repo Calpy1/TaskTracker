@@ -111,10 +111,10 @@ namespace TaskTrackerCLI.Services
 
         public void RemoveTasks()
         {
-            Console.WriteLine("Add a task name to remove it:");
+            Console.WriteLine("Add a task name to remove it: ");
             string removeTask = Console.ReadLine();
 
-            var tasksToRemove = taskItems.FindAll(t => t.Title.Equals(removeTask, StringComparison.OrdinalIgnoreCase));
+            var tasksToRemove = taskItems.FindAll(t => t.Title.Equals(removeTask));
 
             if (tasksToRemove.Count == 0)
             {
@@ -128,7 +128,7 @@ namespace TaskTrackerCLI.Services
                 Console.WriteLine($"Task \"{task.Title}\" successfully deleted.");
             }
 
-            jsonManager.UpdateData(taskItems);
+            jsonManager.WriteTasksToFile(taskItems);
         }
 
         public void PrintTasks()

@@ -22,11 +22,6 @@ namespace TaskTrackerCLI.Services
             WriteTasksToFile(tasks);
         }
 
-        public void UpdateData(List<TaskItem> taskItems)
-        {
-            WriteTasksToFile(taskItems);
-        }
-
         public void WriteTasksToFile(List<TaskItem> tasks)
         {
             string? directoryPath = Path.GetDirectoryName(filePath);

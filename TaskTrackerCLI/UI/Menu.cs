@@ -19,8 +19,8 @@ namespace TaskTrackerCLI.UI
 
             TaskManager taskManager = new TaskManager();
             taskManager.PrintTasks();
-            taskManager.AddTask();
-            //taskManager.RemoveTasks();
+            //taskManager.AddTask();
+            taskManager.RemoveTasks();
             //taskManager.PrintTasks();
         }
     }
