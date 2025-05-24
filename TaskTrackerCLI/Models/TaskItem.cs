@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskTrackerCLI.Models
 {
-    class TaskItem
+    public class TaskItem
     {
         public string Title { get; set; }
         public string? Description { get; set; }

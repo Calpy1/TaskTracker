@@ -9,7 +9,7 @@ namespace TaskTrackerCLI.UI
 {
     class Menu
     {
-        TaskManager taskManager = new TaskManager();
+        ITaskManager taskManager = new TaskManager();
         JsonManager jsonManager = new JsonManager();
 
         public void Run()

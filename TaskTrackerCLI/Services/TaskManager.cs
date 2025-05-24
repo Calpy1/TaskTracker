@@ -8,14 +8,14 @@ using MyTaskStatus = TaskTrackerCLI.Models.TaskStatus;
 
 namespace TaskTrackerCLI.Services
 {
-    class TaskManager
+    public class TaskManager : ITaskManager
     {
         public List<TaskItem> taskItems = new List<TaskItem>();
-        private JsonManager jsonManager = new JsonManager();
+        private JsonManager _jsonManager = new JsonManager();
 
         public TaskManager()
         {
-            taskItems = jsonManager.LoadTasks();
+            taskItems = _jsonManager.LoadTasks();
         }
 
         public void ShowTasks()
@@ -110,7 +110,7 @@ namespace TaskTrackerCLI.Services
             TaskItem taskItem = new TaskItem(title, description, formattedDate, formattedDeadline, priority, status);
             taskItems.Add(taskItem);
 
-            jsonManager.SaveTasks(taskItem);
+            _jsonManager.SaveTasks(taskItem);
             Console.WriteLine("Task added successfully!\n");
         }
 
@@ -132,7 +132,7 @@ namespace TaskTrackerCLI.Services
                 Console.WriteLine($"Task \"{task.Title}\" successfully deleted\n");
             }
 
-            jsonManager.WriteTasksToFile(taskItems);
+            _jsonManager.WriteTasksToFile(taskItems);
         }
 
         public void PrintTasks()
