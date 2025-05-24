@@ -9,7 +9,7 @@ namespace TaskTrackerCLI
         static void Main(string[] args)
         {
             Menu menu = new Menu();
-            menu.Visualisation();
+            menu.Run();
         }
     }
 }

@@ -18,6 +18,11 @@ namespace TaskTrackerCLI.Services
             taskItems = jsonManager.LoadTasks();
         }
 
+        public void ShowTasks()
+        {
+            taskItems.ForEach(item => Console.WriteLine(item));
+        }
+
         public void AddTask()
         {
             Console.WriteLine("Add a task title: ");
@@ -106,26 +111,25 @@ namespace TaskTrackerCLI.Services
             taskItems.Add(taskItem);
 
             jsonManager.SaveTasks(taskItem);
-            Console.WriteLine("Task added successfully!");
+            Console.WriteLine("Task added successfully!\n");
         }
 
-        public void RemoveTasks()
+        public void RemoveTasks(string userChoice)
         {
-            Console.WriteLine("Add a task name to remove it: ");
-            string removeTask = Console.ReadLine();
+            //string[] removeTaskParts = removeTask.Split(" ", StringSplitOptions.RemoveEmptyEntries);
 
-            var tasksToRemove = taskItems.FindAll(t => t.Title.Equals(removeTask));
+            var tasksToRemove = taskItems.FindAll(t => t.Title.Equals(userChoice, StringComparison.OrdinalIgnoreCase));
 
             if (tasksToRemove.Count == 0)
             {
-                Console.WriteLine($"Task \"{removeTask}\" not found.");
+                Console.WriteLine($"Task \"{userChoice}\" not found\n");
                 return;
             }
 
             foreach (var task in tasksToRemove)
             {
                 taskItems.Remove(task);
-                Console.WriteLine($"Task \"{task.Title}\" successfully deleted.");
+                Console.WriteLine($"Task \"{task.Title}\" successfully deleted\n");
             }
 
             jsonManager.WriteTasksToFile(taskItems);
@@ -146,7 +150,7 @@ namespace TaskTrackerCLI.Services
 
             if (string.IsNullOrEmpty(text))
             {
-                Console.WriteLine($"{callMethodName} cannot be empty");
+                Console.WriteLine($"{callMethodName} cannot be empty\n");
                 while (string.IsNullOrEmpty(text))
                 {
                     text = Console.ReadLine();

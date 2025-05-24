@@ -1,26 +1,18 @@
 [
   {
-    "Title": "Test1",
-    "Description": "Test",
+    "Title": "TestTestTest",
+    "Description": "Nothing",
     "CreatedAt": "24.05.25",
-    "DeadlineAt": "09.06.25",
-    "Priority": 0,
-    "Status": 4
+    "DeadlineAt": "18.06.25",
+    "Priority": 1,
+    "Status": 0
   },
   {
-    "Title": "Test2",
-    "Description": "Tets",
+    "Title": "Testing",
+    "Description": "fdsja",
     "CreatedAt": "24.05.25",
-    "DeadlineAt": "28.04.31",
-    "Priority": 2,
-    "Status": 4
-  },
-  {
-    "Title": "test",
-    "Description": "f",
-    "CreatedAt": "24.05.25",
-    "DeadlineAt": "26.05.25",
-    "Priority": 3,
+    "DeadlineAt": "24.01.26",
+    "Priority": 1,
     "Status": 4
   }
 ]
